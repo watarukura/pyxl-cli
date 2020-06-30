@@ -1,21 +1,38 @@
-import click
 from typing import List
+
+import click
+import sys
 
 
 def main() -> None:
-    cli()
+    sys.exit(cli())
 
 
 @click.command()
-@click.argument("template", required=True, type=click.File("rb"))
-@click.argument("sheet_no", required=True, nargs=-1, type=int)
-@click.argument("address", required=True, nargs=-1, type=str)
-@click.argument("input_file", required=True, type=click.File("rb"))
-@click.argument("output_file", required=True, type=click.File("wb"))
+@click.argument("template_xlsx", required=True, type=click.File("rb"))
+@click.option(
+    "--addresses",
+    "-a",
+    required=True,
+    nargs=2,
+    type=click.Tuple([int, str]),
+    multiple=True,
+    help=("sheet_no and address(like a1)"),
+)
+@click.argument("input_text_file", required=True, type=click.File("rb"))
+@click.argument("output_xlsx", required=True, type=click.File("wb"))
 def cli(
-    template: str, sheet_no: List[int], address: List[str], input_file: str, output_file: str
+    template_xlsx: str,
+    addresses: List[str],
+    input_text_file: str,
+    output_xlsx: str,
 ) -> None:
-    pass
+    click.echo(f"template: {template_xlsx}")
+    for address in addresses:
+        click.echo(f"sheet_no: {address[0]}")
+        click.echo(f"address: {address[1]}")
+    click.echo(f"input_file: {input_text_file}")
+    click.echo(f"output_file: {output_xlsx}")
 
 
 if __name__ == "__main__":
