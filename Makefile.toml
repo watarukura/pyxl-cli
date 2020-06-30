@@ -31,7 +31,7 @@ description = "Test"
 script = ['''
 #!/usr/bin/env bash
 sleep 10
-poetry run pytest --verbose -s --cov=src ./tests
+poetry run pytest --verbose -s --cov=pyxl-cli ./tests
 ''']
 
 

@@ -116,7 +116,7 @@ jobs:
           AWS_ENDPOINT_URL: http://localhost:18000
         run: |
           source $HOME/.poetry/env
-          poetry run pytest --verbose -s --cov=src ./tests
+          poetry run pytest --verbose -s --cov=pyxl-cli ./tests
 
       - name: Notify Result to Slack
         uses: homoluctus/slatify@master

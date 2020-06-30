@@ -9,8 +9,7 @@
     "editor.formatOnType": false,
     "editor.insertSpaces": true
   },
-  "python.pythonPath": "${workspaceFolder}/.venv/bin/python",
-  "python.envFile": "${workspaceFolder}/.env",
+  "python.pythonPath": "${workspaceFolder}/.venv/bin/python3",
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": false,
   "python.linting.pycodestyleEnabled": false,
@@ -27,8 +26,6 @@
   "python.testing.nosetestsEnabled": false,
   "python.testing.pytestEnabled": true,
   "python.testing.pytestArgs": [
-    "-vv",
-    "--show-capture=all",
     "tests"
   ],
   "autoDocstring.docstringFormat": "google"
