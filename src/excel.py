@@ -1,6 +1,7 @@
 from typing import Tuple
 
-from openpyxl import coordinate_from_string, load_workbook, worksheet
+from openpyxl import load_workbook, worksheet
+from openpyxl.utils.cell import coordinate_from_string
 
 
 def write_xlsx(

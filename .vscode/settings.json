@@ -4,10 +4,10 @@
     "editor.formatOnSave": true,
     "editor.formatOnPaste": false,
     "editor.formatOnType": false,
-    "editor.insertSpaces": true,
     "editor.codeActionsOnSave": {
       "source.organizeImports": true
     },
+    "editor.insertSpaces": true
   },
   "python.pythonPath": ".venv/bin/python",
   "python.linting.enabled": true,
