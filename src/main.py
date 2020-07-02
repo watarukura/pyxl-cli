@@ -32,7 +32,7 @@ def cli(
 ) -> None:
     for sheet_no, address, input_file in sheet_xy_csv:
         with open(input_file) as f:
-            reader = csv.reader(f)
+            reader = csv.reader(f, delimiter=delimiter)
             input_csv = [row for row in reader]
         write_xlsx(template_xlsx, sheet_no, address, input_csv, output_xlsx)
 

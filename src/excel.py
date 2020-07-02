@@ -1,7 +1,7 @@
 from typing import Tuple
 
 from openpyxl import load_workbook, worksheet
-from openpyxl.utils.cell import coordinate_from_string
+from openpyxl.utils.cell import coordinate_from_string, column_index_from_string
 
 
 def write_xlsx(
@@ -24,7 +24,8 @@ def write_xlsx(
     sheet_name = wb.get_sheet_names()[sheet_no - 1]
     ws = wb.get_sheet_by_name(sheet_name)
 
-    start_row, start_col = coordinate_from_string(address)
+    start_row_letter, start_col = coordinate_from_string(address)
+    start_row = column_index_from_string(start_row_letter)
     write_list_2d(ws, input_csv, start_row, start_col)
 
     wb.save(output_xlsx)
