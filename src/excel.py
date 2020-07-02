@@ -23,8 +23,8 @@ def write_xlsx(
         output_xlsx (str): 出力Xlsxファイル名
     """
     wb = load_workbook(filename=template_xlsx)
-    sheet_name = wb.get_sheet_names()[sheet_no - 1]
-    ws = wb.get_sheet_by_name(sheet_name)
+    sheet_name = wb.sheet_names[sheet_no - 1]
+    ws = wb[sheet_name]
 
     start_row_letter, start_col = coordinate_from_string(address)
     start_row = column_index_from_string(start_row_letter)

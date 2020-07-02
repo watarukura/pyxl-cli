@@ -20,9 +20,9 @@ def main() -> None:
     nargs=3,
     type=click.Tuple([int, str, click.Path(exists=True)]),
     multiple=True,
-    help=("sheet_no and address(like a1) and input csv"),
+    help=("Sheet No and Address(ex: a1, aa12) and Input CSV file"),
 )
-@click.argument("output_xlsx", required=True, type=click.File("wb"))
+@click.argument("output_xlsx", required=True, type=click.Path(writable=True))
 @click.option("--delimiter", default=",", type=str, help="csv delimiter")
 def cli(
     template_xlsx: str,
