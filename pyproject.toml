@@ -16,6 +16,9 @@ version = "0.1.0"
 description = "openpyxl wrapper for cli use"
 authors = ["wataru-kurashima <wataru-kurashima@hands-lab.com>"]
 license = "MIT"
+packages = [
+    { include="src", from="." },
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -34,3 +37,6 @@ pytest-cov = "^2.10.0"
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
+
+[tool.poetry.scripts]
+pyxl = "src.main:cli"

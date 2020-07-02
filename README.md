@@ -1,47 +1,43 @@
-# python_vscode_project_template
+# pyxl-cli
 
-## 目的
+opeypyxl wrapper for cli use.
 
-- Pythonプロジェクトに必要な開発環境用の構成のtemplate
+## install
 
-## 前提
+```sh
+git clone https://github.com/watarukura/pyxl-cli.git .
+pushd pyxl-cli
+poetry install
+popd
+```
 
-- python3
-  - python3.7以上を使う
-    - 特に理由がなければ3.8以上を使う
-- poetry
-- direnv
-  - .envrcにはdotenvと記載
-  - .envに開発用の環境変数をまとめる
+## usage
 
-## ツール
+```sh
+pyxl --help
+Usage: pyxl [OPTIONS] TEMPLATE_XLSX OUTPUT_XLSX
 
-- black
-  - 参考: [もうPythonの細かい書き方で議論しない。blackで自動フォーマットしよう](https://blog.hirokiky.org/entry/2019/06/03/202745)
-- pytest
-  - 参考: [pytest入門 - 闘うITエンジニアの覚え書き](https://www.magata.net/memo/index.php?pytest%C6%FE%CC%E7)
-- super-linter
-  - Pythonコード以外のlintに使う
-- cargo-make
-  - ビルドツール。Makefileに抵抗がなければそっちでもOK
+Options:
+  -T, --sheet_xy_csv <INTEGER TEXT PATH>...
+                                  Sheet No and Address(ex: a1, aa12) and Input
+                                  CSV file  [required]
 
-## オプション
+  --delimiter TEXT                csv delimiter
+  --help                          Show this message and exit.
+```
 
-### RDBへの接続
+for CSV file
 
-- PyMySQL
-  - MySQL で使用する
-- pg8000
-  - PostgreSQL or AmazonRedshift で使用する
-- SQLAlchemy
-  - 大規模プロジェクトでのみ使用する
-- Pandas
-  - 複数RDBMSへの接続やファイルとDBのデータのJOIN等が必要な場合に使用する
-- Jupyter
-  - REPL的に検証したい場合や、検証内容を保存しておきたいときに使用する
+```sh
+pyxl --sheet_xy_csv 1 A1 input.csv \
+    template.xlsx output.xlsx
+```
 
-### 開発
+for 2 TSV files
 
-- 依存パッケージのインストール: `poetry install`
-- test実行: `makers --env-file .env tests`
-- superlint実行: `makers --env-file .env lints`
+```sh
+pyxl --sheet_xy_csv 1 A1 input.tsv \
+    --sheet_xy_csv 1 F12 input.tsv \
+    --delimiter="\t" \
+    template.xlsx output.xlsx
+```
