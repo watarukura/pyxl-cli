@@ -2,7 +2,8 @@ from typing import Tuple
 
 from openpyxl import load_workbook, worksheet
 from openpyxl.utils.cell import (
-    column_index_from_string, coordinate_from_string
+    column_index_from_string,
+    coordinate_from_string,
 )
 
 
@@ -23,11 +24,10 @@ def write_xlsx(
         output_xlsx (str): 出力Xlsxファイル名
     """
     wb = load_workbook(filename=template_xlsx)
-    sheet_name = wb.sheet_names[sheet_no - 1]
-    ws = wb[sheet_name]
+    ws = wb.worksheets[sheet_no - 1]
 
-    start_row_letter, start_col = coordinate_from_string(address)
-    start_row = column_index_from_string(start_row_letter)
+    start_col_letter, start_row = coordinate_from_string(address)
+    start_col = column_index_from_string(start_col_letter)
     write_list_2d(ws, input_csv, start_row, start_col)
 
     wb.save(output_xlsx)
