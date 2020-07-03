@@ -5,10 +5,7 @@ opeypyxl wrapper for cli use.
 ## install
 
 ```sh
-git clone https://github.com/watarukura/pyxl-cli.git .
-pushd pyxl-cli
-poetry install
-popd
+pip install pyxl-cli
 ```
 
 ## usage
