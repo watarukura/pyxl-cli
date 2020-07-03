@@ -22,3 +22,20 @@ def test_cli_csv(tmpdir):
         ],
     )
     assert tmpdir.join("/output.xlsx").isfile
+
+
+def test_cli_ssv(tmpdir):
+    runner.invoke(
+        cli,
+        args=[
+            f"{e2e_test_dir}template.xlsx",
+            "-T",
+            1,
+            "a1",
+            f"{e2e_test_dir}input.ssv",
+            tmpdir.join("output.xlsx"),
+            "--delimiter",
+            " ",
+        ],
+    )
+    assert tmpdir.join("/output.xlsx").isfile
