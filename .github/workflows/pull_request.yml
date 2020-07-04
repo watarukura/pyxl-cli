@@ -52,7 +52,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Lint Code Base
-        uses: github/super-linter@v2.0.0
+        uses: github/super-linter@v2.2.0
         env:
           VALIDATE_ALL_CODEBASE: false
           VALIDATE_YAML: true
@@ -86,7 +86,7 @@ jobs:
 
   test:
     name: Python Test
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
@@ -102,21 +102,10 @@ jobs:
           source $HOME/.poetry/env
           poetry install --no-root
 
-      - name: Start DynamoDB in GitHub Actions
-        uses: rrainn/dynamodb-action@v2.0.0
-        with:
-          port: 18000
-          cors: '*'
-
       - name: Test with pytest
-        env:
-          AWS_ACCESS_KEY_ID: DUMMY
-          AWS_SECRET_ACCESS_KEY: DUMMY
-          AWS_REGION: ap-northeast-1
-          AWS_ENDPOINT_URL: http://localhost:18000
         run: |
           source $HOME/.poetry/env
-          poetry run pytest --verbose -s --cov=pyxl-cli ./tests
+          poetry run pytest --verbose -s --cov=src ./tests
 
       - name: Notify Result to Slack
         uses: homoluctus/slatify@master
