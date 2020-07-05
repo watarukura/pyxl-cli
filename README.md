@@ -23,7 +23,7 @@ output file TSV format
 ```sh
 pyxl read \
     --input_xlsx input.xlsx \
-    --output /tmp/output.xlsx \
+    --output /tmp/output.tsv \
     --delimiter='\t'
 ```
 
@@ -40,8 +40,8 @@ for 2 TSV files
 
 ```sh
 pyxl write \
-    --sheet_xy_csv 1 A1 input.tsv \
-    --sheet_xy_csv 1 F12 input.tsv \
+    --sheet_xy_csv 1 A1 input_a.tsv \
+    --sheet_xy_csv 1 F12 input_b.tsv \
     --delimiter="\t" \
     template.xlsx output.xlsx
 ```
