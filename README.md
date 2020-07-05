@@ -10,30 +10,37 @@ pip install pyxl-cli
 
 ## usage
 
+### read
+output stdout CSV format
+
 ```sh
-pyxl --help
-Usage: pyxl [OPTIONS] TEMPLATE_XLSX OUTPUT_XLSX
-
-Options:
-  -T, --sheet_xy_csv <INTEGER TEXT PATH>...
-                                  Sheet No and Address(ex: a1, aa12) and Input
-                                  CSV file  [required]
-
-  --delimiter TEXT                csv delimiter
-  --help                          Show this message and exit.
+pyxl read \
+    --input_xlsx input.xlsx
 ```
 
+output file TSV format
+
+```sh
+pyxl read \
+    --input_xlsx input.xlsx \
+    --output /tmp/output.xlsx \
+    --delimiter='\t'
+```
+
+### write
 for CSV file
 
 ```sh
-pyxl --sheet_xy_csv 1 A1 input.csv \
+pyxl write \
+    --sheet_xy_csv 1 A1 input.csv \
     template.xlsx output.xlsx
 ```
 
 for 2 TSV files
 
 ```sh
-pyxl --sheet_xy_csv 1 A1 input.tsv \
+pyxl write \
+    --sheet_xy_csv 1 A1 input.tsv \
     --sheet_xy_csv 1 F12 input.tsv \
     --delimiter="\t" \
     template.xlsx output.xlsx
