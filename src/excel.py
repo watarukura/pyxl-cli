@@ -3,7 +3,8 @@ from typing import Any, List
 
 from openpyxl import load_workbook, worksheet
 from openpyxl.utils.cell import (
-    column_index_from_string, coordinate_from_string
+    column_index_from_string,
+    coordinate_from_string,
 )
 
 
