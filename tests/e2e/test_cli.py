@@ -1,78 +1,139 @@
-import pandas as pd
+import pytest
 from click.testing import CliRunner
 
-from src.main import cli
+from src.main import read, write
 
 
 runner = CliRunner()
 e2e_test_dir = "tests/e2e/xlsx/"
 
 
-def test_cli(tmpdir):
+@pytest.mark.parametrize(
+    "template_xlsx, sheet_no, xy, input_csv, delimiter, output_xlsx",
+    (
+        ("template.xlsx", "1", "A1", "input.csv", None, "output.xlsx",),
+        ("output.xlsx", "1", "F6", "input.tsv", "\t", "output2.xlsx",),
+    ),
+)
+def test_cli(
+    template_xlsx: str,
+    sheet_no: str,
+    xy: str,
+    input_csv: str,
+    delimiter: str,
+    output_xlsx: str,
+    tmpdir,
+):
     tmp_dir_name = tmpdir.dirname
 
     runner.invoke(
-        cli,
+        write,
         args=[
-            f"{e2e_test_dir}template.xlsx",
+            f"{e2e_test_dir}{template_xlsx}",
             "-T",
-            1,
-            "a1",
-            f"{e2e_test_dir}input.csv",
-            f"{tmp_dir_name}/output_from_csv.xlsx",
+            sheet_no,
+            xy,
+            f"{e2e_test_dir}{input_csv}",
+            f"{tmp_dir_name}/{output_xlsx}",
             "--delimiter",
-            ",",
+            delimiter,
         ],
     )
 
-    df_expected = pd.read_excel(f"{e2e_test_dir}output.xlsx", index_col=0)
-    df_from_csv = pd.read_excel(
-        f"{tmp_dir_name}/output_from_csv.xlsx", index_col=0
+    result = runner.invoke(
+        read,
+        args=[
+            f"{tmp_dir_name}/{output_xlsx}",
+            "--sheet_no",
+            sheet_no,
+            "--delimiter",
+            delimiter,
+        ],
     )
 
-    assert df_expected.equals(df_from_csv)
-
-    runner.invoke(
-        cli,
+    result_expected = runner.invoke(
+        read,
         args=[
-            f"{e2e_test_dir}output.xlsx",
-            "-T",
-            1,
-            "f6",
-            f"{e2e_test_dir}input.ssv",
-            f"{tmp_dir_name}/output_from_ssv.xlsx",
+            f"{e2e_test_dir}/{output_xlsx}",
+            "--sheet_no",
+            sheet_no,
             "--delimiter",
+            delimiter,
+        ],
+    )
+
+    assert result.output == result_expected.output
+
+
+@pytest.mark.parametrize(
+    "template_xlsx, sheet_no, xy, input_csv, \
+        sheet_no2, xy2, input_csv2, delimiter, output_xlsx",
+    (
+        (
+            "template.xlsx",
+            "1",
+            "A1",
+            "input.ssv",
+            "1",
+            "F6",
+            "input.ssv",
             " ",
-        ],
-    )
-
-    df_expected2 = pd.read_excel(f"{e2e_test_dir}output2.xlsx", index_col=0)
-    df_from_ssv = pd.read_excel(
-        f"{tmp_dir_name}/output_from_ssv.xlsx", index_col=0
-    )
-
-    assert df_expected2.equals(df_from_ssv)
+            "output2.xlsx",
+        ),
+    ),
+)
+def test_cli_input_x2(
+    template_xlsx: str,
+    sheet_no: str,
+    xy: str,
+    input_csv: str,
+    sheet_no2: str,
+    xy2: str,
+    input_csv2: str,
+    delimiter: str,
+    output_xlsx: str,
+    tmpdir,
+):
+    tmp_dir_name = tmpdir.dirname
 
     runner.invoke(
-        cli,
+        write,
         args=[
-            f"{e2e_test_dir}template.xlsx",
+            f"{e2e_test_dir}{template_xlsx}",
             "-T",
-            1,
-            "a1",
-            f"{e2e_test_dir}input.tsv",
+            sheet_no,
+            xy,
+            f"{e2e_test_dir}{input_csv}",
             "-T",
-            1,
-            "f6",
-            f"{e2e_test_dir}input.tsv",
-            f"{tmp_dir_name}/output_from_tsv.xlsx",
+            sheet_no2,
+            xy2,
+            f"{e2e_test_dir}{input_csv2}",
+            f"{tmp_dir_name}/{output_xlsx}",
             "--delimiter",
-            "\t",
+            delimiter,
         ],
     )
 
-    df_from_tsv = pd.read_excel(
-        f"{tmp_dir_name}/output_from_tsv.xlsx", index_col=0
+    result = runner.invoke(
+        read,
+        args=[
+            f"{tmp_dir_name}/{output_xlsx}",
+            "--sheet_no",
+            sheet_no,
+            "--delimiter",
+            delimiter,
+        ],
     )
 
-    assert df_expected2.equals(df_from_tsv)
+    result_expected = runner.invoke(
+        read,
+        args=[
+            f"{e2e_test_dir}/{output_xlsx}",
+            "--sheet_no",
+            sheet_no,
+            "--delimiter",
+            delimiter,
+        ],
+    )
+
+    assert result.output == result_expected.output

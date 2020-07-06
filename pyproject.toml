@@ -12,12 +12,24 @@ exclude = '''
 
 [tool.poetry]
 name = "pyxl-cli"
-version = "0.1.0"
+version = "0.2.0"
 description = "openpyxl wrapper for cli use"
-authors = ["wataru-kurashima <wataru-kurashima@hands-lab.com>"]
+authors = ["watarukura <what.r.j150@gmail.com>"]
+readme = "README.md"
+homepage = "https://github.com/watarukura"
+repository = "https://github.com/watarukura/pixl-cli"
 license = "MIT"
 packages = [
     { include="src", from="." },
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    'Programming Language :: Python :: 3',
+    "Programming Language :: Python :: 3.8",
+    "Topic :: Utilities",
 ]
 
 [tool.poetry.scripts]
@@ -36,8 +48,6 @@ pytest = "^5.4.3"
 flake8 = "^3.8.3"
 isort = "^4.3.21"
 pytest-cov = "^2.10.0"
-pandas = "^1.0.5"
-xlrd = "^1.2.0"
 
 [build-system]
 requires = ["poetry>=0.12"]

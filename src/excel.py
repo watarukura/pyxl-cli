@@ -3,7 +3,8 @@ from typing import Any, List
 
 from openpyxl import load_workbook, worksheet
 from openpyxl.utils.cell import (
-    column_index_from_string, coordinate_from_string
+    column_index_from_string,
+    coordinate_from_string,
 )
 
 
@@ -51,3 +52,9 @@ def write_list_2d(
             sheet.cell(
                 row=start_row + y, column=start_col + x, value=l_2d[y][x]
             )
+
+
+def read_xlsx(input_xlsx: str, sheet_no: int,) -> List[tuple]:
+    wb = load_workbook(filename=input_xlsx)
+    ws = wb.worksheets[sheet_no - 1]
+    return list(ws.values)
