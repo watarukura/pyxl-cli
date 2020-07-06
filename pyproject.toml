@@ -17,7 +17,7 @@ description = "openpyxl wrapper for cli use"
 authors = ["watarukura <what.r.j150@gmail.com>"]
 readme = "README.md"
 homepage = "https://github.com/watarukura"
-repository = "https://github.com/watarukura/pixl-cli"
+repository = "https://github.com/watarukura/pyxl-cli"
 license = "MIT"
 packages = [
     { include="src", from="." },
